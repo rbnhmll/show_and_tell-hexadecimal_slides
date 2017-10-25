@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>h3x1d3c1m4l5 4nd b453 3nc0d1n6</title>
+  <meta charset="utf-8">
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+    body {
+      font-family: 'Droid Serif';
+      color: #212121;
+    }
+    .remark-container {
+      background: #03A9F4;
+    }
+    h1, h2, h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+    blockquote {
+      border-left: 10px solid #03A9F4;
+      background: #E1F5FE;
+      padding: 5px 5px 5px 25px;
+    }
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Ubuntu Mono';
+      text-align: left;
+      background: #F6F8FA;
+    }
+    .remark-code {
+      padding: 16px;
+    }
+    .remark-inline-code {
+      padding: 2px;
+    }    
+    .about img {
+      border-radius: 50%;
+      width: 150px;
+      border: 5px solid #03A9F4;
+    }
+
+    table {
+      padding: 0;
+    }
+    table tr {
+      border-top: 1px solid #cccccc;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8;
+    }
+
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px;
+    }
+
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px;
+    }
+
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0;
+    }
+
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0;
+    }
+    .increment {
+      color: #03A9F4;
+    }
+  </style>
+</head>
+<body>
+  <textarea id="source">
+
+class: center, middle
+
+# Understanding hexadecimals and base encoding
+> Inspired by the [Windy City Rails talk](https://www.youtube.com/watch?v=skBp4AftWWQ&feature=youtu.be) by Vaidehi Joshi, entitled _Hexes and the Magic of Base 16_
+
+---
+
+class: about, center
+
+# Who am I?
+
+![Robin Hamill Headshot](https://www.dropbox.com/s/na2av7oeakzghds/robinHeadshotSquare.jpg?raw=1)
+
+``` javascript
+const me = {
+  occupation: 'Freelance front-end developer',
+  url: 'http://www.robinhamill.com',
+  cohort: [ 7, 'Flexclub', '💪' ],
+  social: [ 'twitter', 'instagram' ],
+  follow() {
+    this.social.map( mode => {
+      return '@rbnhmll';
+    });
+  },
+};
+```
+
+---
+
+# Many different ways to express numbers
+
+2 digit :: base 2 :: binary
+
+10 digit :: base 10 :: denary
+
+16 digit :: base 16 :: hexadecimal
+
+...and beyond!
+
+---
+
+# We count in base 10
+
+*Base* refers to how many unique digits are possible in a single place value. This is also referred to as a _radix_.
+
+**base 2**:   `0,1`
+
+**base 10**:  `0,1,2,3,4,5,6,7,8,9`
+
+**base 16**:  `0,1,2,3,4,5,6,7,8,9`
+    
+- plus:    `a,b,c,d,e,f`
+
+**base 64**:  `0,1,2,3,4,5,6,7,8,9`
+    
+- plus: `a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z`
+- plus: `A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z`
+- plus: `+,/`
+
+---
+
+# Letters as numbers
+
+When speaking about _base_ or _radix_, certain letters and special characters are treated as numbers.
+
+And they increment in the same way that numbers in base 10 do.
+
+| CD | CE | CF | D0 |
+|:---:|:---:|:---:|:---:|
+| 208 | 209 | 210 | 211 |
+
+---
+
+# Counting to a familiar radix - Denary
+
+Let's count to 10 in denary
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+
+And 100 to 109 in denary
+
+| 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | ... |
+
+---
+
+# Counting to a new radix - Binary
+
+Let's count to 9 in binary
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 1 | 10 | 11 | 100 | 101 | 110 | 1000 | 1001 | 1010 | ... |
+
+And 100 to 109 in binary
+
+| 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1100100 | 1100101 | 1100110 | 1100111 | 1101000 | 1101001 | 1101010 | 1101011 | 1101100 | 1101101 | ... |
+
+☝️ *overflow not an accident. Numbers become inconveniently long!
+
+---
+
+# Counting with a new radix - Hexadecimal
+
+Let's count to 10 in hexadecimal
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+
+---
+
+count: false
+
+# Counting with a new radix - Hexadecimal
+
+Let's count to 10 in hexadecimal
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+
+And 10 to 19 in hexadecimal
+
+| 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| A | B | C | D | E | F | <span class="increment">10</span> | 11 | 12 | 13 | ... |
+
+---
+
+count: false
+
+# Counting with a new radix - Hexadecimal
+
+Let's count to 10 in hexadecimal
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ... |
+
+And 10 to 19 in hexadecimal
+
+| 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| A | B | C | D | E | F | <span class="increment">10</span> | 11 | 12 | 13 | ... |
+
+And 100 to 109 in hexadecimal
+
+| 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 64 | 65 | 66 | 67 | 68 | 69 | <span class="increment">6A</span> | 6B | 6C | 6D | ... |
+
+---
+
+# Counting with a new radix - Hexadecimal
+
+And 1000 to 1009 in hexadecimal
+
+| 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 | 1009 | ... |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 3E8 | 3E9 | 3EA | 3EB | 3EC | 3ED | 3EE | 3EF | <span class="increment">3F0</span> | 3F1 | ... |
+
+---
+
+class: center
+
+### Wow, letters are numbers, but
+# WHY DID YOU BRING US HERE?!
+
+.center[![Why?!](https://media.giphy.com/media/ZanWL0MNtv3y0/giphy.gif)]
+
+---
+
+# Experiment: JavaScript
+
+We can decode hexadecimal with javascript, using `parseInt(string, radix)`, to convert to an integer.
+
+---
+
+count: false
+
+# Experiment: JavaScript
+
+We can decode hexadecimal with javascript, using `parseInt(string, radix)`, to convert to an integer.
+
+This function takes two arguments:
+- `string` (value to parse)
+- `radix` (integer between 2 and 36)
+
+---
+
+count: false
+
+# Experiment: JavaScript
+
+We can decode hexadecimal with javascript, using `parseInt(string, radix)`, to convert to an integer.
+
+This function takes two arguments:
+- `string` (value to parse)
+- `radix` (integer between 2 and 36)
+
+```javascript
+parseInt("FF", 16)
+
+> 255
+```
+
+---
+
+# Robin, shut up a sec!
+
+These values are looking very familiar to me
+
+.center[![Smart](https://media.giphy.com/media/ZThQqlxY5BXMc/giphy.gif)]
+
+---
+
+class: center middle
+
+# FF => 255
+
+## ...
+
+---
+
+count: false
+
+class: center middle
+
+# FF => 255
+
+## Zoom 3X!
+
+---
+
+count: false
+
+class: center middle
+
+# FFFFFF => 255 255 255
+
+## ...
+
+---
+
+count: false
+
+class: center middle
+
+# FFFFFF => 255 255 255
+
+## Enhance!
+
+---
+
+count: false
+
+class: center middle
+
+# \#FFFFFF => rgb(255, 255, 255)
+
+```css
+  #FFFFFF === rgb(255, 255, 255) === white
+```
+
+---
+
+class: center, middle
+
+.center[![Yeaaaah](https://media.giphy.com/media/aQvP84KEtXbKU/giphy.gif)]
+# YEAAAAAHHHHHHH!
+
+---
+
+# All your base64 are belong to us
+
+---
+
+# Thank you!
+
+  </textarea>
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+  <script>
+    var slideshow = remark.create();
+  </script>
+</body>
+</html>
